@@ -4,14 +4,14 @@ ArrayList<Integer> sumData;
 int firstYear= 0;
 void setup()
 {
-   size(1000,790);
-   background(80);
+   size(1000,800);
+   background(0);
    drawTrendLineGraph();
    loadData();
-   
-  float border = 0.1 * width;
-     
+     float border = 0.1 * width;
+
   drawAxis(sumData, 10, 10, 99354.0, border);
+
 
 }
 void loadSumData() {
@@ -26,6 +26,7 @@ void loadSumData() {
   }
 }
 
+ 
 void loadData()
 {
     Footballstadiums = new ArrayList<String>();
@@ -37,10 +38,11 @@ void loadData()
     {
       football.add(new Football(lines[i]));
     }
+   //   println(lines[1]);
     for (Football f: football)
     {
-    
-      
+     // println(f.Team + ": " + f.Capacity);
+    // sumData.add(f.City);
     }
 }
 
@@ -57,26 +59,31 @@ void draw()
      stroke(200, 200, 200);
      fill(200, 200, 200);
      float border = width * 0.1f;
+     //line(border, border , border, height - border);
+     //line(border, height - border, width - border, height - border);  
      int x=0; 
      int y=0; 
      float ypoint,ypoint2;
      fill(255);
-     
-    ellipse(0 ,700,  15 ,15);
-    
-  for (Football f: football)
+              ellipse(0 ,700,  15 ,15);
+
+     for (Football f: football)
     {
-      ellipseMode(CENTER);  
+    //  println( f.Latitude + " , " +f.Longitude);
+         //   fill(250, 30, 80, 50);
+         ellipseMode(CENTER);  
         x= x +10; 
         y++; 
        fill(250, 30, 80, 50);
+       //ellipse(border + x*2,height - border - y*2,  5 ,5);
        ypoint = 50 - f.Latitude/100 ; 
        ypoint2 = f.Longitude * 10; 
        int R= 6371;
        float x2 = R * cos(f.Latitude) * cos(f.Longitude)/10;
        float y2 = R * cos(f.Latitude) * sin(f.Longitude)/10;
+           //  println( f.Latitude + "=> " + x2 + " , " + f.Longitude + "=> "+y2);
              
-  // Scale the mouseX value from 0 to 640 to a range between 0 and 175
+         // Scale the mouseX value from 0 to 640 to a range between 0 and 175
   float c = map(x2, 10, width, 270, 500);
   // Scale the mousey value from 0 to 640 to a range between 40 and 300
   float d = map(y2, 10, width, 300, 500);
@@ -84,8 +91,13 @@ void draw()
     fill(255, c, 0);
 
       ellipse(   c  + 100,   d  ,  f.Capacity/1000 ,f.Capacity/1000);
+
+       
+
+
     }
 
+     
 }
 void drawAxis(ArrayList<Integer> data,
               // we no longer have horizontal labels,
@@ -100,15 +112,15 @@ void drawAxis(ArrayList<Integer> data,
   stroke(200, 200, 200);
   fill(200, 200, 200);
 
- // Draw the horizontal azis
+  // Draw the horizontal azis
   line(border, height - border, width - border, height - border);
-  
+
   float horizontalWindowRange = (width - (border * 2.0f));
   float horizontalDataGap = 0.5;
   float horizontalWindowGap = 100;
   float tickSize = border * 0.1f;
-  text("Capacity", 10, 320);
-  
+     text("Capacity", 10, 310);
+ 
   for (int i = 0 ; i <=  horizontalIntervals; i ++)
   {
     // Draw the ticks
